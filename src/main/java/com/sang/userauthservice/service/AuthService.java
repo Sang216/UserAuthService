@@ -4,7 +4,6 @@ import com.sang.userauthservice.model.Role;
 import com.sang.userauthservice.model.User;
 import com.sang.userauthservice.respository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +15,7 @@ import java.util.Optional;
 public class AuthService {
 
     private final UserRepository userRepository;
-    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
 
     public User signUp(String email, String password) {

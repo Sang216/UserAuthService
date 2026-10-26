@@ -30,9 +30,9 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String header = request.getHeader("Authorization");
 
-        if (header != null && !header.startsWith("Bearer ")) {
+        if (header != null && header.startsWith("Bearer ")) {
             try {
-                Claims claims = jwtService.parseToken(header.substring("Bearer ".length()));
+                Claims claims = jwtService.parseToken(header.substring(7));
 
                 List<GrantedAuthority> grantedAuthorities = List.of(
                         new SimpleGrantedAuthority("ROLE_" + claims.get("role").toString())    // Spring Convention
@@ -47,8 +47,7 @@ public class JwtFilter extends OncePerRequestFilter {
             } catch (JwtException e) {
                 SecurityContextHolder.clearContext();
             }
-
-            filterChain.doFilter(request, response);
         }
+        filterChain.doFilter(request, response);
     }
 }
