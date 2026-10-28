@@ -69,8 +69,8 @@ public class AuthController {
         }
     }
 
-    @GetMapping("/hello")
-    public String hello() {
-        return "Hello";
+    @GetMapping("/healthcheck")
+    public ResponseEntity<String> heathCheck() {
+        return new ResponseEntity<>("OK", HttpStatus.OK);
     }
 }
